@@ -1,55 +1,159 @@
-{% extends 'index.html' %}
 
-<script>
+{% extends 'base.html' %}
 
-  var endpoint = '/api/chart/data'
+{% block content %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">Dashboard</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CSV Files</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a class="dropdown-item" href="#">Sample Data 1</a>
+          <a class="dropdown-item" href="#">Sample Data 2</a>
+          <a class="dropdown-item" href="#">Sample Data 3</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      
+    </form>
+  </div>
+</nav>
+
+<div class="starter-template">
+    <h3 class="text-primary">.CSV Data Extractor</h3>
+</div>
+
+<div class="container">
+    <div class="row"> 
+        <div class="col-4"></div>
+        <div class="col-sm-4">
+            <canvas id="myChart" width="100" height="100">
+            <script>
+            var endpoint = '/api/chart/data'
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                success: function(data){
+                var ctx = document.getElementById("myChart");
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: data.label,
+                            data: data.data,
+                            backgroundColor: [
+                                // 'rgba(255, 99, 132, 0.2)',
+                                // 'rgba(54, 162, 235, 0.2)',
+                                // 'rgba(255, 206, 86, 0.2)',
+                                // 'rgba(75, 192, 192, 0.2)',
+                                // 'rgba(153, 102, 255, 0.2)',
+                                // 'rgba(255, 159, 64, 0.2)'
+                                '#01700c','#0a87a2','#9107a6','#571111','#f00707'
+                                
+                            ],
+                            borderColor: [
+                                // 'rgba(255,99,132,1)',
+                                // 'rgba(54, 162, 235, 1)',
+                                // 'rgba(255, 206, 86, 1)',
+                                // 'rgba(75, 192, 192, 1)',
+                                // 'rgba(153, 102, 255, 1)',
+                                // 'rgba(255, 159, 64, 1)'
+                                '#01700c','#0a87a1','#9107a6','#571111','#f00707'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        reponsive: true,
+                        scales: {
+                            yAxes: [{
+                                stacked: true,
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+                },
+                error: function(error_data){
+                console.log(error_data)
+                }
+            })
+
+
+            </script>    
+            </canvas>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="myChart2" width="100" height="100">
+            <script>
+            var endpoint = '/api/chart/data2'
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                success: function(data){
+                var ctx2 = document.getElementById("myChart2");
+                var myChart2 = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: data.label,
+                            data: data.data,
+                            backgroundColor: [
+                                // 'rgba(255, 99, 132, 0.2)',
+                                // 'rgba(54, 162, 235, 0.2)',
+                                // 'rgba(255, 206, 86, 0.2)',
+                                // 'rgba(75, 192, 192, 0.2)',
+                                // 'rgba(153, 102, 255, 0.2)',
+                                // 'rgba(255, 159, 64, 0.2)'
+                                '#f00707','#01700c','#0a87a1','#9107a6','#571111'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        reponsive: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+                },
+                error: function(error_data){
+                console.log(error_data)
+                }
+            })
+
+
+            </script>    
+            </canvas>
+        </div>
+    </div>
+</div>
   
-  $.ajax({
-    method: "GET",
-    url: endpoint,
-    success: function(data){
-      var ctx = document.getElementById("myChart").getContext('2d');
-      var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: data.labels,
-              datasets: [{
-                  label: 'Votes per day',
-                  data: data.data,
-                  backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)'
-                  ],
-                  borderColor: [
-                      'rgba(255,99,132,1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)'
-                  ],
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              reponsive: true,
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
-                      }
-                  }]
-              }
-          }
-      });
-    },
-    error: function(error_data){
-      console.log(error_data)
-    }
-  })
-  
-</script>
+</main>
+{% endblock content %}
