@@ -8,11 +8,11 @@ import csv
 with open('charts/samplefiles/samplefile1.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
-    colms = []
+    columns = []
     records = []
     for row in csv_reader:
         if line_count == 0:
-            colms.append(row)
+            columns.append(row)
             line_count += 1
         else:
             for i in row:
@@ -31,10 +31,20 @@ class ChartData(APIView):
     def get(self, request, format=None):
         data = {
             "data" : records,
-            "labels" : colms[0],
+            "labels" : columns[0],
             "label" :'S Grade Students',
         }   
 
+        return JsonResponse(data)
+    
+class ChartData3(APIView):
+    def get(self, request, format=None):
+        data = {
+            "data": [10, 15, 23, 14, 33, 56, 76],
+            "labels": ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+            "label": "Studies Hours"
+        } 
+        
         return JsonResponse(data)
     
     

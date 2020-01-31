@@ -34,7 +34,63 @@
 
 <div class="container">
     <div class="row"> 
-        <div class="col-4"></div>
+        <div class="col-sm-4 jumbotron-fluid">
+            <canvas id="myChart3" width="100" height="100">
+                <script>
+                var endpoint = '/api/chart/data3'
+                $.ajax({
+                    method: "GET",
+                    url: endpoint,
+                    success: function(data){
+                    var ctx3 = document.getElementById("myChart3");
+                    var myChart = new Chart(ctx3, {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: data.label,
+                                data: data.data,
+                                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            reponsive: true,
+                            scales: {
+                                yAxes: [{
+                                    stacked: true,
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    },
+                    error: function(error_data){
+                        console.log(error_data)
+                    }
+                })
+    
+    
+                </script>    
+                </canvas>
+        </div>
         <div class="col-sm-4">
             <canvas id="myChart" width="100" height="100">
             <script>
@@ -45,31 +101,28 @@
                 success: function(data){
                 var ctx = document.getElementById("myChart");
                 var myChart = new Chart(ctx, {
-                    type: 'doughnut',
+                    type: 'pie',
                     data: {
                         labels: data.labels,
                         datasets: [{
                             label: data.label,
                             data: data.data,
                             backgroundColor: [
-                                // 'rgba(255, 99, 132, 0.2)',
-                                // 'rgba(54, 162, 235, 0.2)',
-                                // 'rgba(255, 206, 86, 0.2)',
-                                // 'rgba(75, 192, 192, 0.2)',
-                                // 'rgba(153, 102, 255, 0.2)',
-                                // 'rgba(255, 159, 64, 0.2)'
-                                '#01700c','#0a87a2','#9107a6','#571111','#f00707'
-                                
-                            ],
-                            borderColor: [
-                                // 'rgba(255,99,132,1)',
-                                // 'rgba(54, 162, 235, 1)',
-                                // 'rgba(255, 206, 86, 1)',
-                                // 'rgba(75, 192, 192, 1)',
-                                // 'rgba(153, 102, 255, 1)',
-                                // 'rgba(255, 159, 64, 1)'
-                                '#01700c','#0a87a1','#9107a6','#571111','#f00707'
-                            ],
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
                             borderWidth: 1
                         }]
                     },
@@ -112,22 +165,21 @@
                             label: data.label,
                             data: data.data,
                             backgroundColor: [
-                                // 'rgba(255, 99, 132, 0.2)',
-                                // 'rgba(54, 162, 235, 0.2)',
-                                // 'rgba(255, 206, 86, 0.2)',
-                                // 'rgba(75, 192, 192, 0.2)',
-                                // 'rgba(153, 102, 255, 0.2)',
-                                // 'rgba(255, 159, 64, 0.2)'
-                                '#f00707','#01700c','#0a87a1','#9107a6','#571111'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
                             borderWidth: 1
                         }]
                     },
